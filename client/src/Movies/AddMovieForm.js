@@ -7,9 +7,15 @@ const AddMovieForm = () => {
     title: "",
     director: "",
     metascore: "",
-    stars: [],
+    stars: [""],
   });
   const {push} = useHistory();
+
+  const addMovie = () => {
+    axios
+      .post("http://localhost:5000/api/movies", movie)
+      .then((res) => push("/"));
+  };
 
   const handleChanges = (e) => {
     e.persist();
@@ -20,14 +26,7 @@ const AddMovieForm = () => {
     setMovie({
       ...movie,
       [e.target.name]: e.target.value,
-      stars: e.target.value.split(","),
     });
-  };
-
-  const addMovie = () => {
-    axios
-      .post("http://localhost:5000/api/movies", movie)
-      .then((res) => push("/"));
   };
 
   const handleSubmit = (e) => {
@@ -74,7 +73,7 @@ const AddMovieForm = () => {
             name="stars"
             value={movie.stars}
             onChange={handleChanges}
-            placeholder="Stars"
+            placeholder="Actors - separate with a comma"
           />
         </div>
 

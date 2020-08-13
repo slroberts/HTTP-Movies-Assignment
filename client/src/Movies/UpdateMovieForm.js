@@ -8,7 +8,7 @@ const UpdateMovieForm = () => {
   const {id} = useParams();
   const {goBack} = useHistory();
 
-  const fetchMovieById = (id) => {
+  const fetchMovieById = () => {
     axios
       .get(`http://localhost:5000/api/movies/${id}`)
       .then((res) => {
@@ -23,9 +23,9 @@ const UpdateMovieForm = () => {
       });
   };
 
-  const putMovie = (update) => {
+  const updateMovie = (movieUpdate) => {
     axios
-      .put(`http://localhost:5000/api/movies/${id}`, update)
+      .put(`http://localhost:5000/api/movies/${id}`, movieUpdate)
       .then((res) => {
         setMovie(res.data);
 
@@ -52,13 +52,12 @@ const UpdateMovieForm = () => {
     setMovie({
       ...movie,
       [e.target.name]: e.target.value,
-      stars: e.target.value.split(","),
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    putMovie(movie);
+    updateMovie(movie);
   };
 
   return (
@@ -101,7 +100,7 @@ const UpdateMovieForm = () => {
             name="stars"
             value={movie.stars}
             onChange={handleChanges}
-            placeholder="Stars"
+            placeholder="Actors - separate with a comma"
           />
         </div>
 
